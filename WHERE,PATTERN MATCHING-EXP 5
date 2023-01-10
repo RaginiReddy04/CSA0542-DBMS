@@ -1,0 +1,138 @@
+mysql> show tables;
++---------------+
+| Tables_in_sse |
++---------------+
+| faculty       |
+| faculty1      |
+| mentees       |
+| mentees1      |
+| mentees2      |
+| student       |
+| studentdept1  |
++---------------+
+7 rows in set (0.00 sec)
+
+mysql> select*from mentees2;
++-----------+--------+------------+------------+----------+
+| regno     | name   | fathername | department | address  |
++-----------+--------+------------+------------+----------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |
+| 192110099 | Nani   | Keasava    | cse        | Mydukur  |
++-----------+--------+------------+------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select*from mentees2 where department="EEE";
++-----------+--------+------------+------------+----------+
+| regno     | name   | fathername | department | address  |
++-----------+--------+------------+------------+----------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |
++-----------+--------+------------+------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select*from mentees2 where name="Ragini";
++-----------+--------+------------+------------+---------+
+| regno     | name   | fathername | department | address |
++-----------+--------+------------+------------+---------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa  |
++-----------+--------+------------+------------+---------+
+1 row in set (0.00 sec)
+
+mysql> alter table mentees add Marks int(6);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table mentees2 add Marks int(6);
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select*from mentees2;
++-----------+--------+------------+------------+----------+-------+
+| regno     | name   | fathername | department | address  | Marks |
++-----------+--------+------------+------------+----------+-------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |  NULL |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |  NULL |
+| 192110099 | Nani   | Keasava    | cse        | Mydukur  |  NULL |
++-----------+--------+------------+------------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> update mentees2 set Marks=96 where Dept="CSE";
+ERROR 1054 (42S22): Unknown column 'Dept' in 'where clause'
+mysql> update mentees2 set marks=96 where department="CSE";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update mentees2 set marks=99 where department="EEE";
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update mentees2 set marks=96 where name="Ragini";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update mentees2 set marks=99 where name="Radha";
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select*from mentees2;
++-----------+--------+------------+------------+----------+-------+
+| regno     | name   | fathername | department | address  | Marks |
++-----------+--------+------------+------------+----------+-------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |    96 |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |    99 |
+| 192110099 | Nani   | Keasava    | cse        | Mydukur  |    96 |
++-----------+--------+------------+------------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select*from mentees2 where Name like 'R%';
++-----------+--------+------------+------------+----------+-------+
+| regno     | name   | fathername | department | address  | Marks |
++-----------+--------+------------+------------+----------+-------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |    96 |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |    99 |
++-----------+--------+------------+------------+----------+-------+
+2 rows in set (0.01 sec)
+
+mysql> select*from mentees2 where Name like 'D%';
+Empty set (0.00 sec)
+
+mysql> select*from mentees2 where Name like 'd%';
+Empty set (0.00 sec)
+
+mysql>  select*from mentees2 where Name like 'a%';
+Empty set (0.00 sec)
+
+mysql>  select*from mentees2 where department like 'a%';
+Empty set (0.00 sec)
+
+mysql> select*from mentees2 where department like 'E%';
++-----------+--------+------------+------------+----------+-------+
+| regno     | name   | fathername | department | address  | Marks |
++-----------+--------+------------+------------+----------+-------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |    96 |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |    99 |
++-----------+--------+------------+------------+----------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select*from mentees2 where Address like '%K';
+Empty set (0.00 sec)
+
+mysql>  select*from mentees2 where Address like 'K%';
++-----------+--------+------------+------------+----------+-------+
+| regno     | name   | fathername | department | address  | Marks |
++-----------+--------+------------+------------+----------+-------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |    96 |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |    99 |
++-----------+--------+------------+------------+----------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select *from mentees2 where Address like '_i';
+Empty set (0.00 sec)
+mysql>  select*from mentees2 where address like 'K__a_a';
++-----------+--------+------------+------------+---------+-------+
+| regno     | name   | fathername | department | address | Marks |
++-----------+--------+------------+------------+---------+-------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa  |    96 |
++-----------+--------+------------+------------+---------+-------+
+1 row in set (0.00 sec)
