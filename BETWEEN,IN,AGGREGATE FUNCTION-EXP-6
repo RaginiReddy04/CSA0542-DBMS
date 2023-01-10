@@ -1,0 +1,110 @@
+
+mysql>  use sse;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_sse |
++---------------+
+| faculty       |
+| faculty1      |
+| mentees       |
+| mentees1      |
+| mentees2      |
+| student       |
+| studentdept1  |
++---------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table mentees2 add subject varchar(20);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> update mentees2 set subject="DBMS" where Dept="EEE";
+ERROR 1054 (42S22): Unknown column 'Dept' in 'where clause'
+mysql> update mentees2 set subject="DBMS" where Department="EEE";
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update mentees2 set subject="PDSD" where Department="CSE";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from mentees2;
++-----------+--------+------------+------------+----------+-------+---------+
+| regno     | name   | fathername | department | address  | Marks | subject |
++-----------+--------+------------+------------+----------+-------+---------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |    96 | DBMS    |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |    99 | DBMS    |
+| 192110099 | Nani   | Keasava    | cse        | Mydukur  |    96 | PDSD    |
++-----------+--------+------------+------------+----------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select*from mentees2 where Marks BETWEEN 95 and 99;
++-----------+--------+------------+------------+----------+-------+---------+
+| regno     | name   | fathername | department | address  | Marks | subject |
++-----------+--------+------------+------------+----------+-------+---------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |    96 | DBMS    |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |    99 | DBMS    |
+| 192110099 | Nani   | Keasava    | cse        | Mydukur  |    96 | PDSD    |
++-----------+--------+------------+------------+----------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> > select sum(Marks) from mentees2 where Department="EEE";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '> select sum(Marks) from mentees2 where Department="EEE"' at line 1
+mysql>  select*from mentees2 where subject IN('DBMS');
++-----------+--------+------------+------------+----------+-------+---------+
+| regno     | name   | fathername | department | address  | Marks | subject |
++-----------+--------+------------+------------+----------+-------+---------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |    96 | DBMS    |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |    99 | DBMS    |
++-----------+--------+------------+------------+----------+-------+---------+
+2 rows in set (0.01 sec)
+
+mysql> select*from mentees2 where Marks NOT BETWEEN 97 and 99;
++-----------+--------+------------+------------+---------+-------+---------+
+| regno     | name   | fathername | department | address | Marks | subject |
++-----------+--------+------------+------------+---------+-------+---------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa  |    96 | DBMS    |
+| 192110099 | Nani   | Keasava    | cse        | Mydukur |    96 | PDSD    |
++-----------+--------+------------+------------+---------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select sum(Marks) from mentees2 where Department="EEE";
++------------+
+| sum(Marks) |
++------------+
+|        195 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(Marks) as Average from mentee2;
+ERROR 1146 (42S02): Table 'sse.mentee2' doesn't exist
+mysql> select avg(Marks) as Average from mentee2;
+ERROR 1146 (42S02): Table 'sse.mentee2' doesn't exist
+mysql> mysql> select min(Marks) as minimum from mentee2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> select min(Marks) as minimum from mentee2' at line 1
+mysql>  select avg(Marks) as Average from mentees2;
++---------+
+| Average |
++---------+
+| 97.0000 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> mysql> select min(Marks) as minimum from mentees2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> select min(Marks) as minimum from mentees2' at line 1
+mysql>  select min(Marks) as minimum from mentees2;
++---------+
+| minimum |
++---------+
+|      96 |
++---------+
+1 row in set (0.00 sec)
+
+mysql>  select max(Marks) as maximum from mentees2;
++---------+
+| maximum |
++---------+
+|      99 |
++---------+
+1 row in set (0.00 sec)
