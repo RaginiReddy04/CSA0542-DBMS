@@ -1,0 +1,62 @@
+mysql> USE SSE;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_sse |
++---------------+
+| faculty       |
+| faculty1      |
+| mentees       |
+| mentees1      |
+| mentees2      |
+| student       |
+| studentdept1  |
++---------------+
+7 rows in set (0.00 sec)
+
+mysql> select*from mentees2;
++-----------+--------+------------+------------+----------+-------+---------+
+| regno     | name   | fathername | department | address  | Marks | subject |
++-----------+--------+------------+------------+----------+-------+---------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |    96 | DBMS    |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |    99 | DBMS    |
+| 192110099 | Nani   | Keasava    | cse        | Mydukur  |    96 | PDSD    |
++-----------+--------+------------+------------+----------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select*from mentees2 order by name;
++-----------+--------+------------+------------+----------+-------+---------+
+| regno     | name   | fathername | department | address  | Marks | subject |
++-----------+--------+------------+------------+----------+-------+---------+
+| 192110099 | Nani   | Keasava    | cse        | Mydukur  |    96 | PDSD    |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |    99 | DBMS    |
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |    96 | DBMS    |
++-----------+--------+------------+------------+----------+-------+---------+
+3 rows in set (0.05 sec)
+
+mysql> select*from mentees2 group by name;
++-----------+--------+------------+------------+----------+-------+---------+
+| regno     | name   | fathername | department | address  | Marks | subject |
++-----------+--------+------------+------------+----------+-------+---------+
+| 192110099 | Nani   | Keasava    | cse        | Mydukur  |    96 | PDSD    |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |    99 | DBMS    |
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |    96 | DBMS    |
++-----------+--------+------------+------------+----------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select*from mentees2 group by department;
++-----------+--------+------------+------------+---------+-------+---------+
+| regno     | name   | fathername | department | address | Marks | subject |
++-----------+--------+------------+------------+---------+-------+---------+
+| 192110099 | Nani   | Keasava    | cse        | Mydukur |    96 | PDSD    |
+| 192110201 | Ragini | Adi        | EEE        | kadapa  |    96 | DBMS    |
++-----------+--------+------------+------------+---------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select*from mentees2 having marks>98;
++-----------+-------+------------+------------+----------+-------+---------+
+| regno     | name  | fathername | department | address  | Marks | subject |
++-----------+-------+------------+------------+----------+-------+---------+
+| 192110201 | Radha | Adi        | EEE        | Khajipet |    99 | DBMS    |
++-----------+-------+------------+------------+----------+-------+---------+
+1 row in set (0.00 sec)
