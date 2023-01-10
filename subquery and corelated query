@@ -1,0 +1,70 @@
+mysql> use sse;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_sse |
++---------------+
+| faculty       |
+| faculty1      |
+| mentees       |
+| mentees1      |
+| mentees2      |
+| mentees3      |
+| mentees4      |
+| mentees5      |
+| mentees6      |
+| mentees7      |
+| mentees8      |
+| mentees9      |
+| student       |
+| studentdept1  |
++---------------+
+14 rows in set (0.00 sec)
+
+mysql> select*from mentees2;
++-----------+--------+------------+------------+----------+-------+---------+
+| regno     | name   | fathername | department | address  | Marks | subject |
++-----------+--------+------------+------------+----------+-------+---------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |    96 | DBMS    |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |    99 | DBMS    |
+| 192110099 | Nani   | Keasava    | cse        | Mydukur  |    96 | PDSD    |
++-----------+--------+------------+------------+----------+-------+---------+
+3 rows in set (0.00 sec)
+mysql> select Regno,Name from mentees2 where Name IN(select Name from mentees2 where Department="EEE");
++-----------+--------+
+| Regno     | Name   |
++-----------+--------+
+| 192110201 | Ragini |
+| 192110201 | Radha  |
++-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> create table mentees9(id int(10),Name varchar(20));
+ERROR 1050 (42S01): Table 'mentees9' already exists
+mysql>  create table mentee10(id int(10),Name varchar(20));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into mentees10(Id,Name)
+    ->  select regno,name
+    -> from mentees where department="EEE";
+ERROR 1146 (42S02): Table 'sse.mentees10' doesn't exist
+mysql> insert into mentees9(Id,Name)
+    -> select regno,name
+    -> from mentees where department="EEE";
+Query OK, 0 rows affected (0.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into mentees9(Id,Name)
+    ->  select regno,name
+    ->  from mentees where department="CSE";
+Query OK, 0 rows affected (0.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from mentees9;
+Empty set (0.00 sec)
+mysql> select*from mentees19;
+ERROR 1146 (42S02): Table 'sse.mentees19' doesn't exist
+mysql> select*from mentees10;
+ERROR 1146 (42S02): Table 'sse.mentees10' doesn't exist
+mysql> select*from mentees9;
+Empty set (0.00 sec)
