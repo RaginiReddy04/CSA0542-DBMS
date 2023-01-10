@@ -1,0 +1,72 @@
+mysql> create table mentees1(regno int(10),name varchar(10),fathername varchar(10),department varchar(10),address varchar(20));
+ERROR 1050 (42S01): Table 'mentees1' already exists
+mysql>  create table mentees2(regno int(10),name varchar(10),fathername varchar(10),department varchar(10),address varchar(20));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc mentees;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| regno      | int(10)     | YES  |     | NULL    |       |
+| name       | varchar(10) | YES  |     | NULL    |       |
+| fathername | varchar(10) | YES  |     | NULL    |       |
+| department | int(10)     | YES  |     | NULL    |       |
+| address    | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc mentees2;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| regno      | int(10)     | YES  |     | NULL    |       |
+| name       | varchar(10) | YES  |     | NULL    |       |
+| fathername | varchar(10) | YES  |     | NULL    |       |
+| department | varchar(10) | YES  |     | NULL    |       |
+| address    | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into mentees2 values(192110201,"Ragini","Adi","cse","kadapa");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into mentees2 values(192110201,"Radha","Adi","cse","Khajipet");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into mentees2 values(19211000,"Preethi","Kesava","cse","khajipet");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into mentees2 values(192110099,"Nani","Keasava","cse","kadapa");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from mentees2;
++-----------+---------+------------+------------+----------+
+| regno     | name    | fathername | department | address  |
++-----------+---------+------------+------------+----------+
+| 192110201 | Ragini  | Adi        | cse        | kadapa   |
+| 192110201 | Radha   | Adi        | cse        | Khajipet |
+|  19211000 | Preethi | Kesava     | cse        | khajipet |
+| 192110099 | Nani    | Keasava    | cse        | kadapa   |
++-----------+---------+------------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select name from mentees2;
++---------+
+| name    |
++---------+
+| Ragini  |
+| Radha   |
+| Preethi |
+| Nani    |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> select*from mentess2 where name="Ragini";
+ERROR 1146 (42S02): Table 'sse.mentess2' doesn't exist
+mysql> select*from mentees2 where name="Ragini";
++-----------+--------+------------+------------+---------+
+| regno     | name   | fathername | department | address |
++-----------+--------+------------+------------+---------+
+| 192110201 | Ragini | Adi        | cse        | kadapa  |
++-----------+--------+------------+------------+---------+
+1 row in set (0.00 sec)
