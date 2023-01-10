@@ -1,0 +1,44 @@
+mysql> use sse;
+Database changed
+mysql> update mentees2 set department="EEE" where regno=192110201;
+Query OK, 2 rows affected (0.06 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select*from mentees2;
++-----------+---------+------------+------------+----------+
+| regno     | name    | fathername | department | address  |
++-----------+---------+------------+------------+----------+
+| 192110201 | Ragini  | Adi        | EEE        | kadapa   |
+| 192110201 | Radha   | Adi        | EEE        | Khajipet |
+|  19211000 | Preethi | Kesava     | cse        | khajipet |
+| 192110099 | Nani    | Keasava    | cse        | kadapa   |
++-----------+---------+------------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> update mentees2 set address="Mydukur" where department="cse";
+Query OK, 2 rows affected (0.02 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select*from mentees2;
++-----------+---------+------------+------------+----------+
+| regno     | name    | fathername | department | address  |
++-----------+---------+------------+------------+----------+
+| 192110201 | Ragini  | Adi        | EEE        | kadapa   |
+| 192110201 | Radha   | Adi        | EEE        | Khajipet |
+|  19211000 | Preethi | Kesava     | cse        | Mydukur  |
+| 192110099 | Nani    | Keasava    | cse        | Mydukur  |
++-----------+---------+------------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> delete from mentees2 where fathername="Kesava";
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from mentees2;
++-----------+--------+------------+------------+----------+
+| regno     | name   | fathername | department | address  |
++-----------+--------+------------+------------+----------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |
+| 192110099 | Nani   | Keasava    | cse        | Mydukur  |
++-----------+--------+------------+------------+----------+
+3 rows in set (0.00 sec)
