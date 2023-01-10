@@ -1,0 +1,129 @@
+mysql> create table mdept(Deptid int(5),Deptname varchar(20),Rollno int(10));
+ERROR 1050 (42S01): Table 'mdept' already exists
+mysql> create table ndept(Deptid int(5),Deptname varchar(20),Rollno int(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into ndept values(1,"CSE",192110201);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into ndept values(2,"CSE",192110099);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into ndept values(3,"EEE",192110201);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from ndept;
++--------+----------+-----------+
+| Deptid | Deptname | Rollno    |
++--------+----------+-----------+
+|      1 | CSE      | 192110201 |
+|      2 | CSE      | 192110099 |
+|      3 | EEE      | 192110201 |
++--------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> update ndept set Deptname="BME" where Rollno=192110201;
+Query OK, 2 rows affected (0.05 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select*from ndept;
++--------+----------+-----------+
+| Deptid | Deptname | Rollno    |
++--------+----------+-----------+
+|      1 | BME      | 192110201 |
+|      2 | CSE      | 192110099 |
+|      3 | BME      | 192110201 |
++--------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql>  select Deptid,Deptname from ndept,mentees2 where mentees2.Regno=ndept.Rollno;
++--------+----------+
+| Deptid | Deptname |
++--------+----------+
+|      1 | BME      |
+|      3 | BME      |
+|      1 | BME      |
+|      3 | BME      |
+|      2 | CSE      |
++--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select Deptid,Deptname,Rollno from ndept,mentees2 where mentees2.Regno=ndept.Rollno;
++--------+----------+-----------+
+| Deptid | Deptname | Rollno    |
++--------+----------+-----------+
+|      1 | BME      | 192110201 |
+|      3 | BME      | 192110201 |
+|      1 | BME      | 192110201 |
+|      3 | BME      | 192110201 |
+|      2 | CSE      | 192110099 |
++--------+----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select Deptid,Deptname,Rollno from ndept,mentees2 where mentees2.Regno=ndept.Rollno;
++--------+----------+-----------+
+| Deptid | Deptname | Rollno    |
++--------+----------+-----------+
+|      1 | BME      | 192110201 |
+|      3 | BME      | 192110201 |
+|      1 | BME      | 192110201 |
+|      3 | BME      | 192110201 |
+|      2 | CSE      | 192110099 |
++--------+----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select Name,Department, Deptid,Deptname,Rollno from ndept,mentees2 where mentees2.Regno=ndept.Rollno;
++--------+------------+--------+----------+-----------+
+| Name   | Department | Deptid | Deptname | Rollno    |
++--------+------------+--------+----------+-----------+
+| Ragini | EEE        |      1 | BME      | 192110201 |
+| Ragini | EEE        |      3 | BME      | 192110201 |
+| Radha  | EEE        |      1 | BME      | 192110201 |
+| Radha  | EEE        |      3 | BME      | 192110201 |
+| Nani   | cse        |      2 | CSE      | 192110099 |
++--------+------------+--------+----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql>  select Rollno,Deptname,Name,Address from ndept left outer join mentees2 on ndept.Rollno=mentees2.Regno;
++-----------+----------+--------+----------+
+| Rollno    | Deptname | Name   | Address  |
++-----------+----------+--------+----------+
+| 192110201 | BME      | Ragini | kadapa   |
+| 192110201 | BME      | Radha  | Khajipet |
+| 192110099 | CSE      | Nani   | Mydukur  |
+| 192110201 | BME      | Ragini | kadapa   |
+| 192110201 | BME      | Radha  | Khajipet |
++-----------+----------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select Rollno,Deptname,Name,Address from ndept right outer join mentees2 on ndept.Rollno=mentees2.Regno;
++-----------+----------+--------+----------+
+| Rollno    | Deptname | Name   | Address  |
++-----------+----------+--------+----------+
+| 192110201 | BME      | Ragini | kadapa   |
+| 192110201 | BME      | Ragini | kadapa   |
+| 192110201 | BME      | Radha  | Khajipet |
+| 192110201 | BME      | Radha  | Khajipet |
+| 192110099 | CSE      | Nani   | Mydukur  |
++-----------+----------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> insert into ndept values(4,"ENE",192110201);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into ndept values(5,"COM",192211090);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select Rollno,Deptname,Name,Address from ndept right outer join mentees2 on ndept.Rollno=mentees2.Regno;
++-----------+----------+--------+----------+
+| Rollno    | Deptname | Name   | Address  |
++-----------+----------+--------+----------+
+| 192110201 | BME      | Ragini | kadapa   |
+| 192110201 | BME      | Ragini | kadapa   |
+| 192110201 | ENE      | Ragini | kadapa   |
+| 192110201 | BME      | Radha  | Khajipet |
+| 192110201 | BME      | Radha  | Khajipet |
+| 192110201 | ENE      | Radha  | Khajipet |
+| 192110099 | CSE      | Nani   | Mydukur  |
++-----------+----------+--------+----------+
+7 rows in set (0.00 sec)
