@@ -1,0 +1,100 @@
+mysql> use sse;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_sse   |
++-----------------+
+| department_view |
+| dwpartment_view |
+| emp             |
+| faculty         |
+| faculty1        |
+| marks_view      |
+| mdept           |
+| mentee10        |
+| mentees         |
+| mentees1        |
+| mentees2        |
+| mentees3        |
+| mentees4        |
+| mentees5        |
+| mentees6        |
+| mentees7        |
+| mentees8        |
+| mentees9        |
+| movies          |
+| ndept           |
+| per             |
+| student         |
+| studentdept1    |
++-----------------+
+23 rows in set (0.00 sec)
+
+mysql> desc students;
+ERROR 1146 (42S02): Table 'sse.students' doesn't exist
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| studid   | int(10)     | YES  |     | NULL    |       |
+| studname | varchar(10) | YES  |     | NULL    |       |
+| gender   | varchar(10) | YES  |     | NULL    |       |
+| studdept | varchar(10) | YES  |     | NULL    |       |
+| city     | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create user Ragini;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> grant on all student to Ragini;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'on all student to Ragini' at line 1
+mysql>  grant  all on student to Ragini;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for Ragini;
++---------------------------------------------------------+
+| Grants for Ragini@%                                     |
++---------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'Ragini'@'%'                      |
+| GRANT ALL PRIVILEGES ON `sse`.`student` TO 'Ragini'@'%' |
++---------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke all on student to Ragini;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to Ragini' at line 1
+mysql> revoke all on student from Ragini;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for Ragini;
++------------------------------------+
+| Grants for Ragini@%                |
++------------------------------------+
+| GRANT USAGE ON *.* TO 'Ragini'@'%' |
++------------------------------------+
+1 row in set (0.00 sec)
+mysql>  grant select,update on emp to Ragini;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for Ragini;
++-----------------------------------------------------+
+| Grants for Ragini@%                                 |
++-----------------------------------------------------+
+| GRANT USAGE ON *.* TO 'Ragini'@'%'                  |
+| GRANT SELECT, UPDATE ON `sse`.`emp` TO 'Ragini'@'%' |
++-----------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke update on persons from Ragini;
+ERROR 1147 (42000): There is no such grant defined for user 'Ragini' on host '%' on table 'persons'
+mysql>  revoke update on emp from Ragini;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for Ragini;
++---------------------------------------------+
+| Grants for Ragini@%                         |
++---------------------------------------------+
+| GRANT USAGE ON *.* TO 'Ragini'@'%'          |
+| GRANT SELECT ON `sse`.`emp` TO 'Ragini'@'%' |
++-------------------------
+2 rows in set (0.00 sec)
