@@ -1,0 +1,104 @@
+mysql> use sse;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_sse   |
++-----------------+
+| department_view |
+| faculty         |
+| faculty1        |
+| marks_view      |
+| mdept           |
+| mentee10        |
+| mentees         |
+| mentees1        |
+| mentees2        |
+| mentees3        |
+| mentees4        |
+| mentees5        |
+| mentees6        |
+| mentees7        |
+| mentees8        |
+| mentees9        |
+| ndept           |
+| per             |
+| student         |
+| studentdept1    |
++-----------------+
+20 rows in set (0.00 sec)
+
+mysql> select*from mentees2;
++-----------+--------+------------+------------+----------+-------+---------+
+| regno     | name   | fathername | department | address  | Marks | subject |
++-----------+--------+------------+------------+----------+-------+---------+
+| 192110201 | Ragini | Adi        | EEE        | kadapa   |    96 | DBMS    |
+| 192110201 | Radha  | Adi        | EEE        | Khajipet |    99 | DBMS    |
+| 192110099 | Nani   | Keasava    | cse        | Mydukur  |    96 | PDSD    |
++-----------+--------+------------+------------+----------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> create view marks_view as select subject,Marks from mentees2;
+ERROR 1050 (42S01): Table 'marks_view' already exists
+mysql>  create view dwpartment_view as select subject,Marks from mentees2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from Marks_view;
++---------+-------+
+| subject | Marks |
++---------+-------+
+| DBMS    |    96 |
+| DBMS    |    99 |
+| PDSD    |    96 |
++---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create index Marks on mentees2(Marks);
+ERROR 1061 (42000): Duplicate key name 'Marks'
+mysql> create index subject on mentees2(subject);
+ERROR 1061 (42000): Duplicate key name 'subject'
+mysql>  create index department on mentees2(department);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from mentees2;
++----------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table    | Non_unique | Key_name   | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++----------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| mentees2 |          1 | subject    |            1 | subject     | A         |           3 |     NULL | NULL   | YES  | BTREE      |         |               |
+| mentees2 |          1 | Marks      |            1 | Marks       | A         |           3 |     NULL | NULL   | YES  | BTREE      |         |               |
+| mentees2 |          1 | department |            1 | department  | A         |           3 |     NULL | NULL   | YES  | BTREE      |         |               |
++----------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> create table per(pid int NOT NULL AUTO_INCREMENT,Name varchar(50),Age int(3),PRIMARY KEY(pid));
+ERROR 1050 (42S01): Table 'per' already exists
+mysql> create table emp(empid int NOT NULL AUTO_INCREMENT,Name varchar(50),Age int(3),PRIMARY KEY(empid));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select*fromemp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fromemp' at line 1
+mysql> select*from emp;
+Empty set (0.00 sec)
+
+mysql> insert into emp(Name,Age) values ("Radha",16);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from emp;
++-------+-------+------+
+| empid | Name  | Age  |
++-------+-------+------+
+|     1 | Radha |   16 |
++-------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp(Name,Age) values ("Ragini",18);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from emp;
++-------+--------+------+
+| empid | Name   | Age  |
++-------+--------+------+
+|     1 | Radha  |   16 |
+|     2 | Ragini |   18 |
++-------+--------+------+
+2 rows in set (0.00 sec)
