@@ -1,0 +1,120 @@
+mysql> use sse;
+Database changed
+mysql> create table movies(Sno int(2),Moviename varchar(30),Type varchar(15));
+Query OK, 0 rows affected (0.00 sec)
+mysql>  insert into movies values(1,"My girlfriend is an alien","Romance");
+Query OK, 1 row affected (0.03 sec)
+
+mysql>  insert into movies values(2,"Two worlds","Thriller");
+Query OK, 1 row affected (0.02 sec)
+
+mysql>  insert into movies values(2,"Two worlds","Thriller");
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into movies values(3,"Anaballe","Horror");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from movies;
++------+---------------------------+----------+
+| Sno  | Moviename                 | Type     |
++------+---------------------------+----------+
+|    1 | My girlfriend is an alien | Romance  |
+|    2 | Two worlds                | Thriller |
+|    2 | Two worlds                | Thriller |
+|    3 | Anaballe                  | Horror   |
++------+---------------------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> savepoint ini;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into movies values(4,"F2","Comedy");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into movies values(5,"Avatar","Action");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from movies;
++------+---------------------------+----------+
+| Sno  | Moviename                 | Type     |
++------+---------------------------+----------+
+|    1 | My girlfriend is an alien | Romance  |
+|    2 | Two worlds                | Thriller |
+|    2 | Two worlds                | Thriller |
+|    3 | Anaballe                  | Horror   |
+|    4 | F2                        | Comedy   |
+|    5 | Avatar                    | Action   |
++------+---------------------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> update movies set Moviesname ="Love today" where Sno=2;
+ERROR 1054 (42S22): Unknown column 'Moviesname' in 'field list'
+mysql>  update movies set Moviename="Love today" where Sno=2;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select*from movies;
++------+---------------------------+----------+
+| Sno  | Moviename                 | Type     |
++------+---------------------------+----------+
+|    1 | My girlfriend is an alien | Romance  |
+|    2 | Love today                | Thriller |
+|    2 | Love today                | Thriller |
+|    3 | Anaballe                  | Horror   |
+|    4 | F2                        | Comedy   |
+|    5 | Avatar                    | Action   |
++------+---------------------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> savepoint upd;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from movies where Sno=2;
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> select*from movies;
++------+---------------------------+---------+
+| Sno  | Moviename                 | Type    |
++------+---------------------------+---------+
+|    1 | My girlfriend is an alien | Romance |
+|    3 | Anaballe                  | Horror  |
+|    4 | F2                        | Comedy  |
+|    5 | Avatar                    | Action  |
++------+---------------------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> savepoint del;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> rollback to upd;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from movies;
++------+---------------------------+----------+
+| Sno  | Moviename                 | Type     |
++------+---------------------------+----------+
+|    1 | My girlfriend is an alien | Romance  |
+|    2 | Love today                | Thriller |
+|    2 | Love today                | Thriller |
+|    3 | Anaballe                  | Horror   |
+|    4 | F2                        | Comedy   |
+|    5 | Avatar                    | Action   |
++------+---------------------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> rollback to ini;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from movies;
++------+---------------------------+----------+
+| Sno  | Moviename                 | Type     |
++------+---------------------------+----------+
+|    1 | My girlfriend is an alien | Romance  |
+|    2 | Two worlds                | Thriller |
+|    2 | Two worlds                | Thriller |
+|    3 | Anaballe                  | Horror   |
++------+---------------------------+----------+
+4 rows in set (0.00 sec)
