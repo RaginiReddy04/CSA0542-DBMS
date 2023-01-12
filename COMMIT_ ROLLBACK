@@ -1,0 +1,99 @@
+mysql> use sse;
+Database changed
+mysql> create table marks(Regno int(3),Name varchar(25), Marks int(3));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into marks values(200,"Ragini",99);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into marks values(201,"Radha",99);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into marks values(201,"Preethi",98);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into marks values(203,"Nani",89);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into marks values(204,"Hussain",92);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from marks;
++-------+---------+-------+
+| Regno | Name    | Marks |
++-------+---------+-------+
+|   200 | Ragini  |    99 |
+|   201 | Radha   |    99 |
+|   201 | Preethi |    98 |
+|   203 | Nani    |    89 |
+|   204 | Hussain |    92 |
++-------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select @@autocommit;
++--------------+
+| @@autocommit |
++--------------+
+|            1 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> insert into marks values(205,"Jaanu",82);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from marks;
++-------+---------+-------+
+| Regno | Name    | Marks |
++-------+---------+-------+
+|   200 | Ragini  |    99 |
+|   201 | Radha   |    99 |
+|   201 | Preethi |    98 |
+|   203 | Nani    |    89 |
+|   204 | Hussain |    92 |
+|   205 | Jaanu   |    82 |
++-------+---------+-------+
+6 rows in set (0.02 sec)
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @@autocomit;
+ERROR 1193 (HY000): Unknown system variable 'autocomit'
+mysql> select @@autocommit;
++--------------+
+| @@autocommit |
++--------------+
+|            0 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> delete from marks where marks=98;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from marks;
++-------+---------+-------+
+| Regno | Name    | Marks |
++-------+---------+-------+
+|   200 | Ragini  |    99 |
+|   201 | Radha   |    99 |
+|   203 | Nani    |    89 |
+|   204 | Hussain |    92 |
+|   205 | Jaanu   |    82 |
++-------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from marks;
++-------+---------+-------+
+| Regno | Name    | Marks |
++-------+---------+-------+
+|   200 | Ragini  |    99 |
+|   201 | Radha   |    99 |
+|   201 | Preethi |    98 |
+|   203 | Nani    |    89 |
+|   204 | Hussain |    92 |
+|   205 | Jaanu   |    82 |
++-------+---------+-------+
+6 rows in set (0.00 sec)
