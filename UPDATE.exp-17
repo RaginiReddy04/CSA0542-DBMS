@@ -1,0 +1,13 @@
+mysql> SELECT REPLICATE('z',3) result;
+result
+zzz
+mysql> SELECT REPLICATE(Dept,2) from mentees;
++-------------------+   
+| REPLICATE(Dept,2) |
++-------------------+   
+| CSECSE            |
+| BMEBME            |
+| ECEECE            |
+| ECEECE            |
++-------------------+
+4 rows in set (0.00 sec)
